@@ -1,0 +1,16 @@
+# alex and claire are partners
+# florence and dave hate each other
+# ebeneezer and bob are good friends
+# dave knows alex through hector
+# hector and alex are good friends
+# claire is best friends with florence
+# gerald doesn't like dave
+alex,       bob,        claire,     dave,       ebeneezer,  florence,   gerald,     hector
+-,          0,           100,       25,         0,          0,          0,          100  # alex
+0,          -,           0,         0,          50,         0,          0,          0   # bob
+100,        0,           -,         0,          0,          100,        0,          0   # claire
+25,         0,           0,         -,          0,          -100,       -50,        50  # dave
+0,          50,          0,         0,          -,          0,          0,          0   # ebeneezer
+0,          0,           100,       -100,       0,          -,          0,          0   # florence
+0,          0,           0,         -50,        0,          0,          -,          0   # gerald
+100,         0,           0,         50,         0,          0,          0,          -   # hector
