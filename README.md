@@ -1,11 +1,13 @@
 # Simulated Annealing
-### Organising people algorithmically
+## Organising people algorithmically
 
 Simulated annealing is an optimisation algorithm that can be used for complex relationships. 
 
 It's modelled around how atoms in a liquid state can organise themselves into the lowest possible energy state as the temperature of the fluid cools and solidifies.
 
 The algorithm is rather simple to implement, you only need to define an initial starting temperature and a method of calculating energy of the overall system.
+
+---
 
 In this example I have a collection of 8 people that want to be split into 2 groups. Each person has a different relationship with eachother, some may be best of friends while some don't like eachother at all. The goal is to organise the group such that everybody is happy, and people who are closest friends should be positioned next to eachother. 
 
@@ -43,6 +45,9 @@ The next step is to define an initial temperature, for this I arbitrarily chose 
 The idea of permitting a negative energy swap enables the system to potentially leave a local minimum (or maximum) and find a better result.
 
 As the temperature trends to zero, the largest swaps have already taken place and movements have been reduced to local neighbours.
+
+---
+
 
 __Sample output__
 ```
