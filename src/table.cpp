@@ -7,7 +7,9 @@
 #include <stdio.h>
 
 Table::Table(uint8_t people, uint8_t groups)
-    : m_people(people), m_groups(groups) {}
+    : m_people(people), m_groups(groups) {
+  people_per_group = m_people / m_groups;
+}
 Table::~Table() {}
 
 bool Table::addPerson(const char *name, uint8_t index,
@@ -48,13 +50,15 @@ bool Table::validate() {
 void Table::shuffle() {
   m_group.clear();
 
+  // Create a buffer that indexes from 0-m_people
+  // Then shuffle it
   std::vector<uint8_t> selected(m_people);
   std::iota(selected.begin(), selected.end(), 0);
   std::shuffle(selected.begin(), selected.end(),
                std::mt19937{std::random_device{}()});
 
-  uint8_t people_per_group = m_people / m_groups;
-
+  // For each group, just allocate chunks of the randomised vector and remove
+  // from it after
   while (selected.size()) {
     std::array<uint8_t, max_people> group;
     for (size_t i = 0; i < people_per_group; i++) {
@@ -67,7 +71,12 @@ void Table::shuffle() {
 }
 
 void Table::swap(uint8_t person_a, uint8_t person_b) {
-  size_t people_per_group = m_people / m_groups;
+  if (person_a >= m_people || person_b >= m_people) {
+    return;
+  }
+
+  // For each group, find person a and swap with person b
+  // Also find person b and swap for person a
   for (size_t group = 0; group < m_groups; group++) {
     for (uint8_t i = 0; i < people_per_group; i++) {
       if (m_group.at(group).at(i) == person_a) {
@@ -89,8 +98,6 @@ void Table::print() {
     printf("Group %-9zu", i);
   }
   printf("\n");
-
-  uint8_t people_per_group = m_people / m_groups;
 
   for (size_t person = 0; person < people_per_group; person++) {
 
@@ -116,8 +123,12 @@ int32_t Table::energy() {
 }
 
 int32_t Table::energy(uint8_t group) {
+  // validate parameters
+  if (group >= m_group.size()) {
+    return 0;
+  }
+
   int32_t sum = 0;
-  size_t people_per_group = m_people / m_groups;
 
   // get the relationship value for each pair in group (2^n matches)
   for (size_t i = 0; i < people_per_group; i++) {

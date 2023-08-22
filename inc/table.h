@@ -10,6 +10,7 @@ private:
     static constexpr uint8_t max_name_size = 15;
     uint8_t m_people;
     uint8_t m_groups;
+    size_t people_per_group;
     
     std::array<std::array<char, 32>, max_people> m_names;
     std::array<std::array<int8_t, max_people>, max_people> m_data; // 2x2 array grid of associations
